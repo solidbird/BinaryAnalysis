@@ -14,8 +14,8 @@
 
 class PEHeader
 {
+
 protected:
-	
 	const std::map<WORD, std::string> characteristicFlags{
 		{IMAGE_FILE_RELOCS_STRIPPED, "IMAGE_FILE_RELOCS_STRIPPED"},
 		{IMAGE_FILE_EXECUTABLE_IMAGE, "IMAGE_FILE_EXECUTABLE_IMAGE"},
@@ -78,7 +78,25 @@ public:
 	IMAGE_OPTIONAL_HEADER64 pe_optional_header;
 	std::vector<IMAGE_SECTION_HEADER> pe_section_headers;
 	std::map<int, std::vector<BYTE>> sections;
-
+	
+	const std::map<std::string, IMAGE_DATA_DIRECTORY* > dataDirectorySetTitle = {
+		{"Export Directory [.edata]", &this->pe_optional_header.DataDirectory[0]},
+		{"Import Directory [parts of .idata]", &this->pe_optional_header.DataDirectory[1]},
+		{"Resource Directory [.rsrc]", &this->pe_optional_header.DataDirectory[2]},
+		{"Exception Directory [.pdata]", &this->pe_optional_header.DataDirectory[3]},
+		{"Security Directory", &this->pe_optional_header.DataDirectory[4]},
+		{"Base Relocation Directory [.reloc]", &this->pe_optional_header.DataDirectory[5]},
+		{"Debug Directory", &this->pe_optional_header.DataDirectory[6]},
+		{"Description Directory", &this->pe_optional_header.DataDirectory[7]},
+		{"Special Directory", &this->pe_optional_header.DataDirectory[8]},
+		{"Thread Storage Directory [.tls]", &this->pe_optional_header.DataDirectory[9]},
+		{"Load Configuration Directory", &this->pe_optional_header.DataDirectory[10]},
+		{"Bound Import Directory", &this->pe_optional_header.DataDirectory[11]},
+		{"Import Address Table Directory", &this->pe_optional_header.DataDirectory[12]},
+		{"Delay Import Directory", &this->pe_optional_header.DataDirectory[13]},
+		{"CLR Runtime Header", &this->pe_optional_header.DataDirectory[14]},
+		{"Reserved", &this->pe_optional_header.DataDirectory[15]}
+	};
 	
 
 private:

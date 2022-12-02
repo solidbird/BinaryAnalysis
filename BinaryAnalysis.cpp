@@ -7,35 +7,18 @@
 #include "PEHeader.h"
 
 void outputDataDictonary(PEHeader &peh) {
-	std::string dataDirNames[] = {
-		"Export Directory [.edata]",
-		"Import Directory [parts of .idata]",
-		"Resource Directory [.rsrc]",
-		"Exception Directory [.pdata]",
-		"Security Directory",
-		"Base Relocation Directory [.reloc]",
-		"Debug Directory",
-		"Description Directory",
-		"Special Directory",
-		"Thread Storage Directory [.tls]",
-		"Load Configuration Directory",
-		"Bound Import Directory",
-		"Import Address Table Directory",
-		"Delay Import Directory",
-		"CLR Runtime Header",
-		"Reserved"
-	};
-	
 
 	int i = 0;
-	for (auto x : peh.pe_optional_header.DataDirectory) {
+	for (auto const  &x : peh.dataDirectorySetTitle) {
 		
-		if (x.Size == 0) {
+		if (x.second->Size == 0) {
 			i++;
 			continue;
 		}
+		
 
-		printf("%d: Size: %x, VirtualAddress: %x\n", i, x.Size, x.VirtualAddress);
+		//std::cout << i << ": " << x.first. << 
+		printf("%d: %s \nSize: %x, VirtualAddress: %x\n\n", i, x.first.c_str(), x.second->Size, x.second->VirtualAddress);
 		i++;
 
 	}

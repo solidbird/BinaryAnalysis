@@ -20,13 +20,11 @@ void PEHeader::loadPEheader() {
 	memcpy(&(this->pe_file_header), peHeader_chunks, sizeof this->pe_file_header);
 	
 	loadPEOptionalHeader();
-	//binfile.read(pointerHeader,400);
 }
 
 void PEHeader::loadPEOptionalHeader() {
 	DWORD entry = this->binfile.tellg();
 
-	//this->binfile.seekg(entry);
 	BYTE peOptHeader_chunks[sizeof(this->pe_optional_header)];
 
 	for (int i = 0; this->binfile.tellg() < entry + sizeof this->pe_optional_header; i++) {
@@ -114,6 +112,7 @@ DWORD PEHeader::getPEHeaderEntry() {
 	return addr;
 }
 
+//losing the datatypes of the different parts of the header by forcing a cast to ULONGLONG
 std::vector<ULONGLONG> PEHeader::outputListPEHeader() {
 	std::vector<ULONGLONG> v = {
 		this->pe_file_header.Machine,
@@ -128,6 +127,7 @@ std::vector<ULONGLONG> PEHeader::outputListPEHeader() {
 	return v;
 }
 
+//losing the datatypes of the different parts of the header by forcing a cast to ULONGLONG
 std::vector<ULONGLONG> PEHeader::outputListPEOptHeader() {
 	std::vector<ULONGLONG> v = {
 		this->pe_optional_header.Magic,
